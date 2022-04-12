@@ -161,16 +161,16 @@ class RequestBodyValidator:
                     else:
                         # the body has contents that were not parsed as JSON
                         raise UnsupportedMediaTypeProblem(
-                                       detail="Invalid Content-type ({content_type}), expected JSON data".format(
-                                           content_type=request.headers.get("Content-Type", "")
-                                       ))
+                            detail="Invalid Content-type ({content_type}), expected JSON data".format(
+                                content_type=request.headers.get("Content-Type", "")
+                            ))
 
                 logger.debug("%s validating schema...", request.url)
                 if data is not None or not self.has_default:
                     self.validate_schema(data, request.url)
             elif self.consumes[0] in FORM_CONTENT_TYPES:
                 data = dict(request.form.items()) or (request.body if len(request.body) > 0 else {})
-                data.update(dict.fromkeys(request.files, ''))  # validator expects string..
+                data.update(dict.fromkeys(request.files, ''))  # type validator expects string..
                 logger.debug('%s validating schema...', request.url)
 
                 if self.strict_validation:
@@ -219,8 +219,8 @@ class RequestBodyValidator:
                     error_path_msg=error_path_msg),
                 extra={'validator': 'body'})
             raise BadRequestProblem(detail="{message}{error_path_msg}".format(
-                               message=exception.message,
-                               error_path_msg=error_path_msg))
+                message=exception.message,
+                error_path_msg=error_path_msg))
 
         return None
 
