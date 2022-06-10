@@ -89,6 +89,12 @@ def test_invalid_operation_does_not_stop_application_in_debug_mode():
     assert api.specification['info']['title'] == 'OK'
 
 
+def test_x_body_name_body_schema_deprecation(caplog):
+    FlaskApi(TEST_FOLDER / "fixtures/deprecation_support/openapi.yaml",
+             base_path="/api/v1.0", arguments={'title': 'OK'})
+    assert 'x-body-name within the requestBody schema will be deprecated in the next major version. It should be provided directly under the requestBody instead.' in caplog.text
+
+
 def test_other_errors_stop_application_to_setup():
     # Errors should still result exceptions!
     with pytest.raises(InvalidSpecification):
@@ -126,6 +132,7 @@ def test_validation_error_on_completely_invalid_swagger_spec():
     with pytest.raises(InvalidSpecification):
         FlaskApi(pathlib.Path(f.name), base_path="/api/v1.0")
     os.unlink(f.name)
+
 
 @pytest.fixture
 def mock_api_logger(monkeypatch):

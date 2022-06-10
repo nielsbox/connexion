@@ -54,7 +54,8 @@ def oauth_requests(monkeypatch):
             if token in ["300", "is_not_invalid"]:
                 return FakeResponse(404, '')
             if token == "has_scopes_in_scopes_with_s":
-                return FakeResponse(200, '{"uid": "test-user", "scopes": ["myscope", "otherscope"]}')
+                return FakeResponse(
+                    200, '{"uid": "test-user", "scopes": ["myscope", "otherscope"]}')
         return url
 
     monkeypatch.setattr('connexion.security.flask_security_handler_factory.session.get', fake_get)
@@ -96,6 +97,11 @@ def secure_api_spec_dir():
 @pytest.fixture
 def default_param_error_spec_dir():
     return FIXTURES_FOLDER / 'default_param_error'
+
+
+# @pytest.fixture
+# def deprecation_support_spec_dir():
+#     return FIXTURES_FOLDER / 'deprecation_support'
 
 
 @pytest.fixture
