@@ -15,6 +15,7 @@ class DummyClass:
     def test_method(self):
         return self.__class__.__name__
 
+
 class_instance = DummyClass()  # noqa
 
 
@@ -38,13 +39,16 @@ def post_greeting(name, **kwargs):
     data = {'greeting': f'Hello {name}'}
     return data
 
+
 def post_greeting3(body, **kwargs):
     data = {'greeting': 'Hello {name}'.format(name=body["name"])}
     return data
 
+
 def post_greeting_url(name, remainder, **kwargs):
     data = {'greeting': f'Hello {name} thanks for {remainder}'}
     return data
+
 
 def post_goodday(name):
     data = {'greeting': f'Hello {name}'}
@@ -90,8 +94,10 @@ def get_bye_secure_from_connexion(req_context):
 def get_bye_secure_ignoring_context(name):
     return f'Goodbye {name} (Secure!)'
 
+
 def get_bye_secure_jwt(name, user, token_info):
     return f'Goodbye {name} (Secure: {user})'
+
 
 def with_problem():
     raise ProblemException(type='http://www.example.com/error',
@@ -281,8 +287,10 @@ def test_default_param(name):
 def test_default_object_body(stack):
     return {"stack": stack}
 
+
 def test_nested_additional_properties(body):
     return body
+
 
 def test_default_integer_body(stack_version):
     return stack_version
@@ -294,6 +302,7 @@ def test_empty_object_body(stack):
 
 def test_falsy_param(falsy):
     return falsy
+
 
 def test_formdata_param3(body):
     return body["formData"]
@@ -407,6 +416,7 @@ def test_nullable_param_put(contents):
         return 'it was None'
     return contents
 
+
 def test_nullable_param_put_noargs(dummy=''):
     return 'hello'
 
@@ -470,6 +480,7 @@ def auth_exception():
 def test_args_kwargs(*args, **kwargs):
     return kwargs
 
+
 def test_args_kwargs_post(*args, **kwargs):
     return kwargs
 
@@ -495,14 +506,18 @@ def test_param_sanitization3(query=None, body=None):
 def test_body_sanitization(body=None):
     return body
 
+
 def test_body_sanitization_additional_properties(body):
     return body
+
 
 def test_body_sanitization_additional_properties_defined(body):
     return body
 
+
 def test_body_not_allowed_additional_properties(body):
     return body
+
 
 def post_wrong_content_type():
     return "NOT OK"
@@ -520,6 +535,7 @@ def get_unicode_data():
 def get_enum_response():
     try:
         from enum import Enum
+
         class HTTPStatus(Enum):
             OK = 200
     except ImportError:
@@ -553,6 +569,7 @@ def post_user(body):
     body['user_id'] = 8
     body.pop('password', None)
     return body
+
 
 def post_multipart_form(body):
     x = body['x']
